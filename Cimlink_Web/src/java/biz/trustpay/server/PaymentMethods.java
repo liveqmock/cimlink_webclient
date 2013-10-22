@@ -559,7 +559,7 @@ public class PaymentMethods {
                 submit.append("$.mobile.showPageLoadingMsg();");
                 submit.append("$.ajax({");
                 submit.append("type: \"POST\",");
-                submit.append("url: \"https://my.trustpay.biz/TrustPayWebClient/Pay?\"+dataString" + methods[0].type.replaceAll(" ", "_") + j + "+\"\",");
+                submit.append("url: \"https://my.trustpay.biz/Cimlink_Web/Pay?\"+dataString" + methods[0].type.replaceAll(" ", "_") + j + "+\"\",");
                 submit.append("}).done(function( msg ) {");
                 submit.append("$.mobile.hidePageLoadingMsg();");
                 submit.append("if(msg.substring(0,4)==(\"http\")){");

@@ -18,8 +18,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -156,28 +155,7 @@ public class Transact extends HttpServlet {
         }
     }
 
-    private String getCarrierCode(Transaction trans) {
-        String ret = "";
-        String url = "https://my.trustpay.biz/motraffic/WebClientRequest?txid=" + trans.transaction_id;
-        url = url + "&msisdn=" + trans.msisdn;
-        url = url + "&apptxid=" + trans.app_transaction_id;
-        url = url + "&currency=" + trans.currency;
-        url = url + "&appuser=" + trans.app_user_id;
-        url = url + "&appid=" + trans.application_id;
-        try {
-            url = url + "&message=" + URLEncoder.encode(trans.app_tx_description,"UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Transact.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        url = url + "&amount=" + trans.amount;
-        url = url + "&countrycode=" + trans.territory_id;
-        url = url + "&istest=" + trans.istest;
-        HttpCommunication comms = new HttpCommunication();
-        comms.setUrl(url);
-        ret = comms.getResponse();
-
-        return ret;
-    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**

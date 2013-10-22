@@ -4,6 +4,7 @@
  */
 package biz.trustpay.server;
 
+import biz.trustpay.log.Log;
 import biz.trustpay.transactions.objects.PaymentProvider;
 import biz.trustpay.transactions.objects.Transaction;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class TransactionSession {
         methods.put(trans.transaction_id, pps);
         success.put(trans.transaction_id, successurl);
         fail.put(trans.transaction_id, failurl);
+        Log.Log(Log.INFO, "Added transaction", trans.transaction_id);
     }
 
     public Transaction getTransaction(String transactionId) {
@@ -51,6 +53,7 @@ public class TransactionSession {
         if (obj instanceof Transaction) {
             ret = (Transaction) obj;
         }
+        Log.Log(Log.INFO, "get transaction", ret.transaction_id);
         return ret;
     }
     
@@ -89,6 +92,7 @@ public class TransactionSession {
             String key = (String) e.nextElement();
             Date date = (Date) times.get(key);
             if (now.getTime() - date.getTime() > 1800000) {
+                Log.Log(Log.INFO, "remove transaction", key);
                 times.remove(key);
                 hash.remove(key);
                 methods.remove(key);
