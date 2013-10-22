@@ -1,25 +1,15 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
-
-set :scm, :subversion
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
-
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+desc "Compile Cimlink_Web and deploy to tomcat"
+task :tomcat do
+    run ("sudo /home/trustpay/pmtp_tomcat.sh");
+end
+server 'app4.propensity.co.za', :app, :primary => true
+set :user, "trustpay"
+set :use_sudo,false
+set :application, "Cimlink_Web"
+set :repository,  "git@github.com:propensity/cimlink_webclient.git"
+set :scm, :git
+set :deploy_via,  :rsync_with_remote_cache
+set :rsync_options, '--copy-links -az --delete '
+set :artifact_command, '(cd Cimlink_Web && ant clean && ant dist )'
+set :deploy_to, "/home/#{user}/#{application}"
+after "deploy:restart", "tomcat"
