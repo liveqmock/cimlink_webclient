@@ -37,7 +37,7 @@ public class Log {
 
     private static void append(String logmessage) {
         System.out.println("in append");
-        String logfile = "/var/log/tomcat7/log_trustpay_webclient.log";
+        String logfile = "/var/log/tomcat7/log_trustpay_cim_webclient.log";
         System.out.println("logfile " + logfile);
         File log = new File(logfile);
         if (!log.exists()) {
