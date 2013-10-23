@@ -116,7 +116,14 @@ public class PaymentMethods {
         sb.append("<ul data-role=\"listview\" data-inset=\"true\" data-theme=\"a\">");
         sb.append("<li data-role=\"list-divider\">Select a Payment Method</li>");
         sb.append(methods.toString());
-        sb.append("</ul>");
+        sb.append("</ul></br>");
+        
+        sb.append("<ul data-role=\"listview\" data-inset=\"true\" data-theme=\"a\">");
+        sb.append("<li data-role=\"list-divider\">How to use CIMLINK</li>");
+        sb.append("<li><a href=\"http://www.cimlink.mobi\"  ><img src=\"images/cims.png\" alt=\"\" /><h2>Use CIMLINK to pay using your FNB eWallet.</h2><h2>For more information go to <font color=\"#006699\">www.cimlink.mobi</font></h2><a href=\"http://www.cimlink.mobi\"></a></a></li>");
+                                
+        sb.append("</ul></br>");
+        
         sb.append("<a href=\"" + TransactionSession.getInstance().getFail(transaction_id) + "\" data-role=\"button\" data-icon=\"delete\">Cancel</a>");
         sb.append("</div>");
         sb.append(popups.toString());

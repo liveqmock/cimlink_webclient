@@ -5,8 +5,10 @@
         <group>
             <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/src/java/biz/trustpay/server/PaymentMethods.java</file>
             <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/src/java/biz/trustpay/servlets/Transact.java</file>
+            <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/src/java/biz/trustpay/servlets/Pay.java</file>
             <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/src/java/biz/trustpay/log/Log.java</file>
             <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/web/index.jsp</file>
+            <file>file:/Users/williedejongh/cimlink_webclient/cimlink_webclient/Cimlink_Web/src/java/biz/trustpay/server/TransactionSession.java</file>
         </group>
     </open-files>
 </project-private>
