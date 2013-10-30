@@ -104,6 +104,7 @@ public class PaymentMethods {
         sb.append("display: inline-block;");
         sb.append("}");
         sb.append("</style>");
+        sb.append("<title>Pay by CIMLINK</title>");
         sb.append("</head>");
         sb.append("<body style=\"text-align: center;\">");
         sb.append(submit.toString());

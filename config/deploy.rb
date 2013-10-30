@@ -10,6 +10,6 @@ set :repository,  "git@github.com:propensity/cimlink_webclient.git"
 set :scm, :git
 set :deploy_via,  :rsync_with_remote_cache
 set :rsync_options, '--copy-links -az --delete '
-set :artifact_command, '(cd Cimlink_Web && ant clean && ant dist )'
+set :artifact_command, '(cd Cimlink_Web && /usr/local/apache-ant/bin/ant clean && /usr/local/apache-ant/bin/ant dist )'
 set :deploy_to, "/home/#{user}/#{application}"
 after "deploy:restart", "tomcat"
