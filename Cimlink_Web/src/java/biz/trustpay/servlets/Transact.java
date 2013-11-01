@@ -54,7 +54,7 @@ public class Transact extends HttpServlet {
         trans.app_transaction_id = request.getParameter("txid");
         trans.currency = request.getParameter("currency");
         trans.app_user_id = request.getParameter("appuser");
-        trans.application_id = request.getParameter("appid");
+        trans.application_id = "ap.9f73283f-5cf7-428d-ab94-4a1e55ef4467";
         trans.app_tx_description = request.getParameter("message");
         if (trans.app_tx_description != null) {
             trans.app_tx_description = URLDecoder.decode(trans.app_tx_description, "UTF-8");
