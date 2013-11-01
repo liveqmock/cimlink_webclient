@@ -151,121 +151,25 @@ public class PaymentMethods {
 
                     if (lower <= amount && amount <= upper && bm[j].currencies[x].getCurrencycode().equals(currency)) {
                         if (bm[j].type.equals("CARRIER BILLING")) {
-                            carrier = true;
-                            style.append("#mobile_form {");
-                            style.append("padding: 20px;");
-                            style.append("max-width: 550px;");
-
-                            style.append("}");
-                            mobile.append("");
-                            mobile.append("<div data-role=\"popup\" id=\"mobile\" data-theme=\"a\" class=\"ui-corner-all\" data-overlay-theme=\"a\">");
-                            mobile.append("<form id=\"mobile_form\" >");
-                            mobile.append("<label id = \"messagemobile\"class=\"lbl\">  </label>");
-                            mobile.append("<h3><img src=\"images/carrier.png\" alt=\"\" /></h3>");
-                            if (bm[j].currencies[x].sn != null) {
-                                keyword = bm[j].currencies[x].sn.fKeyword;
-                                mobile.append("<label id=\"smscode\">SMS \"" + keyword + " " + cbcode + "\"</label><h3> to " + bm[j].currencies[x].sn.fMsisdn + "</h3>");
-                                mobile.append("<h5><p>This code will be valid</p><p>for the next 30 minutes.</p></h5>");
-
-                            }
-                            mobile.append("<a href=\"#\" onclick='JavaScript:cancelCbCode()' data-rel=\"back\" data-role=\"button\" data-theme=\"a\" data-icon=\"delete\" data-iconpos=\"left\" data-mini=\"true\" class=\"ui-btn-right\">Cancel</a>");
-                            mobile.append("<input type=\"button\" data-theme=\"a\" data-icon=\"check\" data-mini=\"true\" data-inline=\"true\" value=\"Ok\" name=\"submit\" onclick='JavaScript:PayMobile()'/>");
-
-                            mobile.append("</form>");
-                            mobile.append("</div>");
-                            count++;
-                            break;
+                            
                         } else {
                             appname = bm[j].applicationname;
                             String methodname = bm[j].type;
-                            if (methodname.equals("CREDIT CARD")) {
-                                methods.append("<li><a href=\"#" + methodname.replaceAll(" ", "_") + "\"  data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/creditcard.png\" alt=\"\" /><h2>Pay Via Credit Card</h2><p>Visa or Master accepted</p></a></li>");
-                                //This is a HACK for now
-                                bm[j].selected = "images/creditcard.png";
-                                count++;
-                                popups.append(getPopup(bm[j]));
-                                break;
-                            } else if (methodname.equals("WALLET")) {
-                                methods.append("<li><a href=\"#" + methodname + "\"  data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/im.png\" alt=\"\" /><h2>Pay Via Instant Money Wallet</h2></a></li>");
-                                //This is a HACK for now
-                                bm[j].selected = "images/im.png";
-                                count++;
-                                popups.append(getPopup(bm[j]));
-                                break;
-                            } else if (methodname.equals("VOUCHER")) {
-                                methods.append("<li><a href=\"#" + methodname + "\"  data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/ukash.png\" alt=\"\" /><h2>Pay Via UKash Voucher</h2></a></li>");
-                                //This is a HACK for now
-                                bm[j].selected = "images/ukash.png";
-                                count++;
-                                popups.append(getPopup(bm[j]));
-                                break;
-                            } else if (methodname.equals("CIMS")) {
+                            if (methodname.equals("CIMS")) {
                                 methods.append("<li><a href=\"#" + methodname + "\"  data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/cims.png\" alt=\"\" /><h2>Pay Via CIMLINK</h2></a></li>");
                                 //This is a HACK for now
                                 bm[j].selected = "images/cims.png";
                                 count++;
                                 popups.append(getPopup(bm[j]));
                                 break;
-                            } else {
-                                methods.append("<li><a href=\"#" + methodname + "\"  data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"data:image/gif;base64," + bm[j].unselected + "\" alt=\"\" /><h2>" + methodname + "</h2></a></li>");
-                                count++;
-                                popups.append(getPopup(bm[j]));
-                                break;
-                            }
+                            } 
 
                         }
                     }
                 }
             }
         }
-        if (carrier) {
-            //methods.append("<li><a href=\"#mobile\" onclick='JavaScript:getCbCode()' data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/carrier.png\" alt=\"\" /><h2>Pay From Your Mobile Account</h2></a></li>");
-            methods.append("<li><a href=\"#mobile\" onclick='JavaScript:getCbCode()' data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><img src=\"images/carrier.png\" alt=\"\" /><h2>Pay From Your Mobile Account</h2></a></li>");
-            getcbcode.append("<script type=\"text/javascript\">");
-
-            getcbcode.append("function getCbCode() {");
-            getcbcode.append("$.mobile.showPageLoadingMsg();");
-
-            getcbcode.append("var gethttp = new XMLHttpRequest();");
-            getcbcode.append("gethttp.onreadystatechange = function()");
-            getcbcode.append("{");
-            getcbcode.append("if (gethttp.readyState == 4 && gethttp.status == 200) {");
-            getcbcode.append("var response = gethttp.responseText;");
-            getcbcode.append("console.log(response);");
-            getcbcode.append("$(\"#smscode\").text(\"SMS \\\"" + keyword + " \" +response+\"\\\"\");");
-            getcbcode.append("$(\"#smscode\").css(\"font-weight\", 'bold');");
-            getcbcode.append("$.mobile.hidePageLoadingMsg();");
-            getcbcode.append("}");
-            getcbcode.append("};");
-            getcbcode.append("gethttp.open(\"GET\", \"https://my.trustpay.biz/TrustPayWebClient/GetCbCode?action=request&txid=" + transaction_id + "\", true);");
-            getcbcode.append("gethttp.send();");
-            getcbcode.append("}");
-
-
-            getcbcode.append("function cancelCbCode() {");
-            getcbcode.append("$.mobile.showPageLoadingMsg();");
-
-            getcbcode.append("var gethttp = new XMLHttpRequest();");
-            getcbcode.append("gethttp.onreadystatechange = function()");
-            getcbcode.append("{");
-            getcbcode.append("if (gethttp.readyState == 4 && gethttp.status == 200) {");
-            getcbcode.append("var response = gethttp.responseText;");
-            getcbcode.append("console.log(\"Canceled \"+response);");
-
-            getcbcode.append("$.mobile.hidePageLoadingMsg();");
-            getcbcode.append("}");
-            getcbcode.append("};");
-            getcbcode.append("gethttp.open(\"GET\", \"https://my.trustpay.biz/TrustPayWebClient/GetCbCode?action=cancel&txid=" + transaction_id + "\", true);");
-            getcbcode.append("gethttp.send();");
-            getcbcode.append("}");
-
-            getcbcode.append("</script>");
-            submit.append("function PayMobile() {");
-            submit.append("window.location=\"" + success + "\";");
-            submit.append("}");
-
-
-        }
+        
         if (count == 0) {
             methods.append("<li><h5>No payment methods for this transaction.</h5></li>");
         }
@@ -311,63 +215,7 @@ public class PaymentMethods {
                 submit.append("function Pay" + methods[0].type.replaceAll(" ", "_") + j + "() {");
 
                 submit.append("var ok = true;");
-                if (methods[j].captcha) {
-                    String url = "https://my.trustpay.biz/UkashProcessor/CaptchaServlet";
-                    HttpCommunication comms = new HttpCommunication();
-                    comms.setUrl(url);
-                    String captchaobject = comms.getResponse();
-                    String img = "";
-                    String challenge = "";
-                    JSONObject capobj = new JSONObject(captchaobject);
-                    JSONArray caparr = capobj.getJSONArray("captcha");
-                    if (caparr.length() > 0) {
-                        img = ((JSONObject) caparr.get(0)).getString("image");
-                        challenge = ((JSONObject) caparr.get(0)).getString("challenge");
-                    }
-
-                    sb.append("<input type=\"hidden\" id=\"recaptcha_challenge_field\" name=\"recaptcha_challenge_field\"/>");
-                    submit.append(" var challenge = $(\"input#recaptcha_challenge_field\").val(); ");
-                    urlcall = urlcall + "&challenge==' + challenge +'";
-                    //sb.append("<div id=\"images\" data-mini=\"true\" data-inline=\"true\" >");
-                    sb.append("<img id=\"recaptcha_image\" data-mini=\"true\" data-inline=\"true\" name=\"recaptcha_image\" src=\"data:image/gif;base64," + img + "\" alt=\"\" />");
-                    //sb.append("</div>");
-                    sb.append("</br></br><input type=\"button\" data-theme=\"a\" data-icon=\"refresh\" data-mini=\"true\" data-inline=\"true\" value=\"Reload Image\" name=\"reload\" onclick='JavaScript:Reload()'/>");
-                    sb.append("</br>");
-                    sb.append("<input placeholder=\"Enter the above two words.\" type=\"text\" name=\"recaptcha_response_field\"/>");
-                    submit.append(" var captcha = $(\"input#recaptcha_response_field\").val(); ");
-                    urlcall = urlcall + "&captcha=' + captcha +'";
-                    reload.append("<script type=\"text/javascript\">");
-                    reload.append("function Reload() {");
-                    reload.append("$.mobile.showPageLoadingMsg();");
-                    reload.append("var img = \"\";");
-                    reload.append("var newchallenge = \"\";");
-                    reload.append("var gethttp = new XMLHttpRequest();");
-                    reload.append("gethttp.onreadystatechange = function()");
-                    reload.append("{");
-                    reload.append("if (gethttp.readyState == 4 && gethttp.status == 200) {");
-                    reload.append("var response = gethttp.responseText;");
-                    reload.append("var json = $.parseJSON(response);");
-                    reload.append("$(json).each(function(i, val) {");
-                    reload.append("$(json.captcha).each(function(ii, vval) {");
-                    reload.append("img = vval.image;");
-                    reload.append("newchallenge = vval.challenge;");
-
-                    reload.append("console.log(newchallenge);");
-                    reload.append("console.log(\"________________________\");");
-                    reload.append("console.log(img);");
-                    reload.append("});");
-                    reload.append("});");
-                    reload.append("$(\"input#recaptcha_challenge_field\").val(newchallenge);");
-                    reload.append("$(\"img#recaptcha_image\").attr(\"src\",\"data:image/gif;base64,\"+img);");
-                    reload.append("$.mobile.hidePageLoadingMsg();");
-                    reload.append("}");
-                    reload.append("};");
-                    reload.append("gethttp.open(\"GET\", \"https://my.trustpay.biz/UkashProcessor/CaptchaServlet\", true);");
-                    reload.append("gethttp.send();");
-                    reload.append("}");
-                    reload.append("</script>");
-
-                }
+                
 
                 for (int i = 0; i < methods[j].properties.length; i++) {
 
@@ -567,7 +415,7 @@ public class PaymentMethods {
                 submit.append("$.mobile.showPageLoadingMsg();");
                 submit.append("$.ajax({");
                 submit.append("type: \"POST\",");
-                submit.append("url: \"https://my.trustpay.biz/Cimlink_Web/Pay?\"+dataString" + methods[0].type.replaceAll(" ", "_") + j + "+\"\",");
+                submit.append("url: \"http://t.trustpay.biz/Cimlink_Web/Pay?\"+dataString" + methods[0].type.replaceAll(" ", "_") + j + "+\"\",");
                 submit.append("}).done(function( msg ) {");
                 submit.append("$.mobile.hidePageLoadingMsg();");
                 submit.append("if(msg.substring(0,4)==(\"http\")){");
