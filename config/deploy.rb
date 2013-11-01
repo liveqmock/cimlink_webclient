@@ -2,7 +2,7 @@ desc "Compile Cimlink_Web and deploy to tomcat"
 task :tomcat do
     run ("sudo /home/trustpay/pmtp_tomcat.sh");
 end
-server 'app4.propensity.co.za', :app, :primary => true
+server 'tpe2.propensity.co.za', :app, :primary => true
 set :user, "trustpay"
 set :use_sudo,false
 set :application, "Cimlink_Web"
