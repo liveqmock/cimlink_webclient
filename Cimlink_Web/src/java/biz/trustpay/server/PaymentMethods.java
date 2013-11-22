@@ -419,10 +419,11 @@ public class PaymentMethods {
                 submit.append("}).done(function( msg ) {");
                 submit.append("$.mobile.hidePageLoadingMsg();");
                 submit.append("if(msg.substring(0,4)==(\"http\")){");
-                submit.append("window.location=msg;");
                 if(methods[0].type.replaceAll(" ", "_").equals("CIMS")){
                     submit.append("alert(\"Please dial *120*1017# to complete your purchase.\");");
                 }
+                submit.append("window.location=msg;");
+                
                 submit.append("} else {");
                 submit.append(" $('#message" + bm.type.replaceAll(" ", "_") + "').text(msg);");
                 submit.append(" $('#message" + bm.type.replaceAll(" ", "_") + "').css(\"color\", 'red');");
